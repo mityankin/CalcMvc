@@ -1,0 +1,151 @@
+﻿@model CalcMvcMityankin.Models.CalcStateViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
+</script>
+<style>
+    #border {
+        border: solid 1px black;
+    }
+</style>
+<script>
+$(document).ready(function(){
+    $("[id=numValue]").click(function () {
+
+        var currAction = $("#CurrentAction").val();
+        if (new String(currAction).valueOf() == new String("=").valueOf()) {
+            $("#History").val("");
+            $("#Result").val("");
+            $("#PreviousValue").val("");
+            $("#CurrentValue").val("");
+            $("#History").val("");
+            $("#PreviousAction").val("");
+            $("#CurrentAction").val("");
+
+        }      
+        var historyValue = $("#History").val();
+        var currentValue = $("#CurrentValue").val();
+        var isNotHaveDot = new Boolean(true);
+        var buttonValue = $(this).attr("value");
+        
+        if (new String(buttonValue).valueOf() == new String(".").valueOf()) {
+           
+            for (var i = 0, len = currentValue.length; i < len; i++) {
+                if (new String(currentValue[i]).valueOf() == new String(".").valueOf()) {
+                    isNotHaveDot = false;
+                    alert(" It`s Button . and it is double");
+                }
+            }
+        }
+      
+        if (isNotHaveDot) {
+            $("#History").val(historyValue + $(this).attr("value"));
+            $("#CurrentValue").val($("#CurrentValue").val() + $(this).attr("value"));
+            
+        }
+    });
+});
+
+</script>
+
+<h2>Calc</h2>
+
+    @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-horizontal">
+ 
+                    <div class="row">
+                        <br/>
+                        <div class="col-md-1 ">
+                            @Html.EditorFor(model => model.History, new { @class = "form-control", name = "history", id = "history" })
+                        </div>
+                        <div class="col-md-1 ">
+                            
+                        </div>
+                            <div class="col-md-1">
+                                @Html.EditorFor(model => model.Result, new { @class = "form-control", Name = "Result", id = "Result" })
+                            </div>
+
+                            <div style="display: none;">
+                                @Html.EditorFor(model => model.CurrentAction, new { Name = "CurrentAction", id = "CurrentAction" })
+                                @Html.EditorFor(model => model.PreviousAction, new { Name = "PreviousAction", id = "PreviousAction" })
+                                @Html.EditorFor(model => model.PreviousValue, new { Name = "PreviousValue", id = "PreviousValue" })
+                                @Html.EditorFor(model => model.CurrentValue, new { Name = "CurrentValue", id = "CurrentValue" })
+                            </div>
+                        </div>
+            <br />
+                    <div class="row">
+                        <div class="col-md-2 col-md-offset-2">
+                            <button type="submit" id="btnHH1" name="btnAction" value="clear" class="btn btn-danger" style="width:100%;">C</button>
+                        </div>
+                    </div>
+            <br />
+                    <div class="row">
+                        <div class="col-md-1">
+                            <button type="button" id="numValue" name="btnAction" value="7" class="btn btn-default" style="width:100%;">7</button>
+                        </div>
+                        <div class="col-md-1">
+                            <button type="button" id="numValue" name="btnAction" value="8" class="btn btn-default" style="width:100%;">8</button>
+                        </div>
+                        <div class="col-md-1">
+                            <button type="button" id="numValue" name="btnAction" value="9" class="btn btn-default" style="width:100%;">9</button>
+                        </div>
+                        <div class="col-md-1">
+                            <button type="submit" id="btnHH1" name="btnAction" value="/" class="btn btn-primary" style="width:100%;">/</button>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-1">
+                            <button type="button" id="numValue" name="btnAction" value="4" class="btn btn-default" style="width:100%;">4</button>
+                        </div>
+                        <div class="col-md-1">
+                            <button type="button" id="numValue" name="btnAction" value="5" class="btn btn-default" style="width:100%;">5</button>
+                        </div>
+                        <div class="col-md-1">
+                            <button type="button" id="numValue" name="btnAction" value="6" class="btn btn-default" style="width:100%;">6</button>
+                        </div>
+                        <div class="col-md-1">
+                            <button type="submit" id="btnHH1" name="btnAction" value="*" class="btn btn-primary" style="width:100%;">*</button>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-1">
+                            <button type="button" id="numValue" name="btnAction" value="1" class="btn btn-default" style="width:100%;">1</button>
+                        </div>
+                        <div class="col-md-1">
+                            <button type="button" id="numValue" name="btnAction" value="2" class="btn btn-default" style="width:100%;">2</button>
+                        </div>
+                        <div class="col-md-1">
+                            <button type="button" id="numValue" name="btnAction" value="3" class="btn btn-default" style="width:100%;">3</button>
+                        </div>
+                        <div class="col-md-1">
+                            <input type="submit" id="btnHH1" name="btnAction" Value="-" class="btn btn-primary" style="width:100%;">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2">
+                            <button type="button" id="numValue" name="btnAction" value="0" class="btn btn-default" style="width:100%;">0</button>
+                        </div>
+                        <div class="col-md-1">
+                            <button type="button" id="numValue" name="btnAction" value="." class="btn btn-default" style="width:100%;">.</button>
+                        </div>
+                        <div class="col-md-1">
+                            <button type="submit" id="btnHH1" name="btnAction" value="+" class="btn btn-primary" style="width:100%;">+</button>
+                        </div>
+                    </div>
+            <br />
+                    <div class="row">
+                        <div class="col-md-4 ">
+                            <button type="submit" id="btnHH1" name="btnAction" value="=" class="btn btn-success" style="width:100%;">=</button>
+                        </div>
+                    </div>
+
+</div>
+    }
+
